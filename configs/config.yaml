@@ -1,0 +1,74 @@
+# configs/config.yaml
+base_model_name: "mistralai/Mistral-7B-Instruct-v0.1"
+
+
+lora_config:
+  r: 8
+  lora_alpha: 32
+  target_modules: ["q_proj", "v_proj"]
+  lora_dropout: 0.1
+  bias: "none"
+  task_type: "CAUSAL_LM"
+
+duration_units: ["seconds", "minutes", "hours", "days", "weeks", "months", "years", "decades", "centuries"]
+
+vocab_to_keyword: {
+  1: "second", 2: "minute", 3: "hour", 4: "day", 5: "week", 6: "month", 7: "year", 8: "decade", 9: "century",
+  10: "dawn", 11: "morning", 12: "noon", 13: "afternoon", 14: "evening", 15: "dusk", 16: "night", 17: "midnight",
+  18: "monday", 19: "tuesday", 20: "wednesday", 21: "thursday", 22: "friday", 23: "saturday", 24: "sunday",
+  25: "january", 26: "february", 27: "march", 28: "april", 29: "may", 30: "june", 31: "july", 32: "august",
+  33: "september", 34: "october", 35: "november", 36: "december",
+  37: "spring", 38: "summer", 39: "fall", 40: "winter",
+  41: "after", 42: "before", 61: "while", 62: "during",
+  43: "second", 44: "minute", 45: "hour", 46: "day", 47: "week", 48: "month", 49: "year", 50: "decade", 51: "century",
+  52: "second", 53: "minute", 54: "hour", 55: "day", 56: "week", 57: "month", 58: "year", 59: "decade", 60: "century"
+}
+training:
+
+
+  train_generated_question: True
+  train_contra_generated_question: True
+  mode: "combined_ord"
+  use_cost: True
+  output_dir: "./outputs"
+  learning_rate: 1e-4
+  weight_decay: 0.01
+  num_epochs: 10
+  batch_size: 4
+  eval_batch_size: 8
+  max_grad_norm: 1.0
+  log_every: 10
+  run_eval_before_train: True
+  warm_up: 600
+  emd_weight: 0.6
+  triplet_weight: 0.2
+  order_weight: 0.1
+  margin: 0.3
+  qa_num_shot: 0
+  qa_use_few_shot: False
+
+evaluation:
+
+  batch_size: 4
+  save_predictions: True
+  evaluate_few_shot: False
+  prompt_style: "standard"
+  num_shots: 0
+  prompt_template: 1
+  td_num_shots: 0
+  td_prompt_style: "standard"
+  sd_num_shots: 0
+  self_reflect: False
+
+
+dataset:
+
+  train_contra_questions: ""
+  train_ord: ""
+  train_with_question: ""
+  test: ""
+
+
+ 
+debug:
+  tiny_data: False
